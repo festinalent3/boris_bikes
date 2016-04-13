@@ -6,6 +6,8 @@ describe DockingStation do
     let(:ds) { DockingStation.new }
     let(:test_bikes) { ds.send(:bikes) } #To access private instance variable bikes
 
+
+
   it { is_expected.to respond_to(:release_bike) } #Fine
 
     it 'does not release a broken bike' do #Dependency
