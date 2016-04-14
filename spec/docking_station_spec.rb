@@ -6,14 +6,11 @@ describe DockingStation do
     let(:ds) { DockingStation.new }
     let(:test_bikes) { ds.send(:bikes) } #To access private instance variable bikes
 
-
-
   it { is_expected.to respond_to(:release_bike) } #Fine
 
     it 'does not release a broken bike' do #Dependency
         test_bikes << bike
         allow(bike).to receive(:report_status).with(false).and_return(false) #To pass with argument
-        bike.report_status(false)
         allow(bike).to receive(:working).and_return(true)
         expect { ds.release_bike }.to raise_error "It's broken" unless test_bikes.last.working
       end
