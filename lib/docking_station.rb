@@ -1,19 +1,23 @@
 require_relative "bike"
+require_relative "van"
 
 class DockingStation
   DEFAULT_CAPACITY = 20
 
+  attr_accessor :bikes, :capacity #:van
 
-  attr_accessor :bikes, :capacity
-
-  def initialize(capacity = DEFAULT_CAPACITY)
+  def initialize(capacity = DEFAULT_CAPACITY, van = Van.new)
     @bikes = []
     @capacity = capacity
+    @van = van
+    #@van = Van.new
   end
 
   def dock(bike)
     raise 'Docking station full' if full?
     bikes << bike
+    #van.take(bike) if !working?
+
     bikes.last
   end
 

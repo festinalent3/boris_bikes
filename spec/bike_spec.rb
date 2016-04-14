@@ -7,7 +7,6 @@ describe Bike do
   end
 
 
-
   it { is_expected.to respond_to :working? }
 
   it { is_expected.to respond_to(:report).with(1).argument }
