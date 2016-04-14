@@ -35,7 +35,7 @@ end
       end # all ok!
 
      it 'raises an error if bike isn\'t working' do
-     bike.report(false)  # depend
+     allow(bike).to receive(:working?).and_return(false)
      subject.dock(bike)  # depend
      (expect { subject.release_bike }.to raise_exception 'Bike not working') #unless bikes.last.working?
      end   # sort of possible dependency or something
@@ -46,12 +46,15 @@ end
 
     it 'releases a bike' do
       subject.dock(bike)   # depend
+      allow(bike).to receive(:working?).and_return(true)
       expect(subject.release_bike).to eq bike # depend
     end
 
      it 'releases a working bike' do
-       subject.dock(bike)   # depend
-      # bike = subject.release_bike
+
+       subject.dock(bike)
+       allow(bike).to receive(:working?).and_return(true)
+             # bike = subject.release_bike
     #   expect(bike).to be_working
        expect(subject.release_bike).to be_working # maybe depend probably faily
       end
