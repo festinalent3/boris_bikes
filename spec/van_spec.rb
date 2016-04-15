@@ -11,18 +11,17 @@ describe Van do
 
 	it 'takes broken bikes from the docking station' do
 		allow(ds).to receive(:bikes).and_return([broken_bike, working_bike, broken_bike])
-		# allow(bikes).to receive(:each).and_return([bike, bike, bike])
-		#subject.take([broken_bike, working_bike, broken_bike])
 		subject.take_broken_bikes(ds)
-		expect((subject.bikes.length) == 2)
+		expect((subject.van_bikes.length) == 2)
 	end
 
 	it 'delivers broken bikes to garage' do
 		allow(garage).to receive(:bikes).and_return([])
 		subject.deliver(garage)
-		expect(subject.bikes).to eq([])
+		expect(subject.van_bikes).to eq([])
 	end
-
-
-
 end
+
+
+# allow(bikes).to receive(:each).and_return([bike, bike, bike])
+#subject.take([broken_bike, working_bike, broken_bike])
