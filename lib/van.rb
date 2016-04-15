@@ -1,27 +1,38 @@
-require_relative 'bike'
-require_relative 'docking_station'
-require_relative 'garage'
+# require_relative 'bike'
+# require_relative 'docking_station'
+# require_relative 'garage'
 
-class Van #< Array
-  attr_accessor :van_bikes
+class Van 
+  attr_accessor :broken_bikes, :working_bikes
 
   def initialize
-    @van_bikes = []
+    @broken_bikes = []
+    @working_bikes = []
   end
 
   def take_broken_bikes(docking_station)
-    docking_station.bikes.each {|bike| van_bikes << bike if !bike.working? }
+    docking_station.bikes.each {|bike| broken_bikes << bike if !bike.working? }
     remove_bike_from_ds(docking_station)
   end
 
   def remove_bike_from_ds (docking_station)
-    docking_station.bikes.reject! { |bike| van_bikes.include?(bike) }
-      #docking_station.bikes.delete(van_bikes)
+    docking_station.bikes.reject! { |bike| broken_bikes.include?(bike) }
   end
 
   def deliver(garage)
-    garage.bikes << van_bikes
-    van_bikes = []
+    garage.broken_bikes.concat(broken_bikes)
+    @broken_bikes = []
+  end
+
+  def collect_working_bikes(garage)
+    @working_bikes.concat(garage.working_bikes)
+  end
+
+  def return_bikes(docking_station)
+    working_bikes.each do |bike|
+      docking_station.dock(bike)
+      working_bikes.delete(bike)
+    end
   end
 
 end
