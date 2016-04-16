@@ -3,12 +3,7 @@ require 'garage'
 
 describe Garage do
   let(:broken_bike) { double(:broken_bike, working?: false) }
-	let(:working_bike) { double(:working_bike, working?: true) }
-
-  it 'stores broken bikes' do
-    subject.store_broken_bikes([broken_bike, broken_bike])
-    expect(subject.bikes).to eq [broken_bike, broken_bike]
-  end
+  let(:working_bike) { double(:working_bike, working?: true) }
 
   it 'fixes broken bikes' do
     subject.bikes = [broken_bike, broken_bike]

@@ -9,12 +9,6 @@ module BikeContainer
     @capacity = capacity
   end
 
-  # def release_working_bike
-  #   raise 'Piss off!' if empty?
-  #   raise "It's broken" unless bikes.last.working
-  #   bikes.pop
-  # end
-
   def dock(bike)
     raise "I'm all full up!" if full?
     bikes << bike

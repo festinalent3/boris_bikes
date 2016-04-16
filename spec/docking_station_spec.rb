@@ -29,5 +29,4 @@ describe DockingStation do
     expect { ds.release_bike }.to raise_exception if test_bikes.empty?
   end
 
-
 end

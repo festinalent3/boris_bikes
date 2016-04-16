@@ -1,6 +1,4 @@
-# require_relative 'bike'
 require_relative 'bike_container'
-
 
 class DockingStation
   include BikeContainer
@@ -10,5 +8,5 @@ class DockingStation
     raise "It's broken" unless bikes.last.working
     bikes.pop
   end
-
+    
 end

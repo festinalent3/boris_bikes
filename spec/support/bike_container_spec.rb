@@ -6,7 +6,7 @@ require 'garage'
 shared_examples_for "a bike container" do
   let(:bike_container) { described_class.new() }
   let(:bike) { double(:bike, working:true) }
-  let(:test_bikes) { bike_container.send(:bikes) } #To access private instance variable bikes
+  let(:test_bikes) { bike_container.send(:bikes) }
 
   describe 'initialization' do
     context "initialized with maximum capacity of 20 bikes" do
@@ -29,28 +29,13 @@ shared_examples_for "a bike container" do
         bike_container.bikes.should eq([])
       end
     end
-
-
-
   end
-
-  #
-  # describe "#release_bikes" do
-  #   context "can release working bikes" do
-  #     it "returns true" do
-  #
-  #       test_bikes << bike #DOUBLE
-  #       bike_container.release_bike.working.should eq(true) #DOUBLE HERE???? --> bike
-  #     end
-  #   end
-  # end
 
   describe '#dock' do
     context "it can dock a bike that is either working or not working" do
       it "returns true" do
-        # (expect(ds.dock(bike)).to eq test_bikes)
-        bike_container.dock(bike)     #.should eq(test_bikes)
-        bike_container.bikes.include?(bike).should eq(true) #NEED DOUBLE test_bikes (Bike rack)
+        bike_container.dock(bike)
+        bike_container.bikes.include?(bike).should eq(true)
       end
       it 'raises an error when full' do
         bike_container.capacity.times { subject.dock bike }
@@ -59,16 +44,16 @@ shared_examples_for "a bike container" do
     end
   end
 
-describe DockingStation do
-  it_behaves_like "a bike container"
-end
+  describe DockingStation do
+    it_behaves_like "a bike container"
+  end
 
-describe Van do
-  it_behaves_like "a bike container"
-end
+  describe Van do
+    it_behaves_like "a bike container"
+  end
 
-describe Garage do
-  it_behaves_like "a bike container"
-end
+  describe Garage do
+    it_behaves_like "a bike container"
+  end
 
 end

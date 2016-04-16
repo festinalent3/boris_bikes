@@ -18,8 +18,8 @@ class Van
   end
 
   def collect_working_bikes(garage)
-      garage.bikes.each { |bike| dock(bike) if bike.working }
-      remove_bikes_from(garage)
+    garage.bikes.each { |bike| dock(bike) if bike.working }
+    remove_bikes_from(garage)
   end
 
   def return_bikes(docking_station)
