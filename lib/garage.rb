@@ -1,19 +1,17 @@
-class Garage
-  attr_accessor :broken_bikes, :working_bikes
+require_relative 'bike_container'
+require_relative 'bike'
 
-  def initialize
-    @broken_bikes = []
-    @working_bikes = []
-  end
+class Garage
+  include BikeContainer
 
   def store_broken_bikes(van_bikes)
-    @broken_bikes = van_bikes
+    #@bikes.concat(van_bikes)
+    dock(van_bikes).flatten! #DOESEN'T work???? see if line 22 in van fixed it maybe we donät need this method
   end
 
   def fix_bikes
-    broken_bikes.each do |bike|
-      @working_bikes << bike.report_status(true)
+    @bikes.each do |bike|
+      bike.report_status(true)
     end
-    @broken_bikes =[]
   end
 end

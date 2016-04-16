@@ -1,3 +1,4 @@
+require 'bike_container'
 require 'garage'
 
 describe Garage do
@@ -6,14 +7,17 @@ describe Garage do
 
   it 'stores broken bikes' do
     subject.store_broken_bikes([broken_bike, broken_bike])
-    expect(subject.broken_bikes).to eq [broken_bike, broken_bike]
+    expect(subject.bikes).to eq [broken_bike, broken_bike]
   end
 
   it 'fixes broken bikes' do
-    allow(broken_bike).to receive(:report_status).with(true).and_return(working_bike)
-    subject.broken_bikes = [broken_bike, broken_bike]
+    subject.bikes = [broken_bike, broken_bike]
+    allow(broken_bike).to receive(:report_status).with(true) do
+      index = subject.bikes.index(broken_bike)
+      subject.bikes[index]= working_bike
+    end
     subject.fix_bikes
-    (expect(subject.working_bikes).to eq([working_bike, working_bike])) && (expect(subject.broken_bikes).to eq([]))
+    expect(subject.bikes).to eq([working_bike, working_bike])
   end
 
 end

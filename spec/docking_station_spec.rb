@@ -1,3 +1,4 @@
+require 'bike_container'
 require 'docking_station'
 require 'bike'
 
@@ -28,29 +29,5 @@ describe DockingStation do
     expect { ds.release_bike }.to raise_exception if test_bikes.empty?
   end
 
-  it 'expects an error when dock tries to add a bike when subject bike_rack is greater than capacity' do
-    expect { ds.dock }.to raise_exception if test_bikes.count >= subject.capacity
-  end
-
-  it 'raises an error when full' do
-    subject.capacity.times { subject.dock bike }
-    expect { subject.dock bike }.to raise_exception if test_bikes.count >= subject.capacity
-  end
-
-  it 'makes sure capacity is set to DEFAULT_CAPACITY when no parameters are passed to DockingStation.new' do
-    expect(subject.capacity).to eq DockingStation::DEFAULT_CAPACITY
-  end
-
-  describe 'initialization' do #no 17
-    it 'has a variable capacity' do
-      ds.capacity.times { ds.dock bike }
-      expect{ ds.dock bike }.to raise_exception "I'm all full up!"
-    end
-
-    it 'has a default capacity' do
-      DockingStation::DEFAULT_CAPACITY.times { ds.dock bike }
-      expect{ ds.dock bike }.to raise_exception "I'm all full up!"
-    end
-  end
 
 end

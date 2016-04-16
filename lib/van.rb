@@ -1,38 +1,30 @@
-# require_relative 'bike'
-# require_relative 'docking_station'
-# require_relative 'garage'
+require_relative 'bike_container'
+require_relative 'bike'
 
-class Van 
-  attr_accessor :broken_bikes, :working_bikes
-
-  def initialize
-    @broken_bikes = []
-    @working_bikes = []
+class Van
+  include BikeContainer
+  def take_broken_bikes(docking_station) #If I have time: THROW ERROR IF THERE ARE NO BROKEN BIKES IN DOCK
+    docking_station.bikes.each { |bike| dock(bike) if !bike.working && bikes.length < capacity }
+    remove_bikes_from(docking_station)
   end
 
-  def take_broken_bikes(docking_station)
-    docking_station.bikes.each {|bike| broken_bikes << bike if !bike.working? }
-    remove_bike_from_ds(docking_station)
-  end
-
-  def remove_bike_from_ds (docking_station)
-    docking_station.bikes.reject! { |bike| broken_bikes.include?(bike) }
+  def remove_bikes_from(place)
+    place.bikes.reject! { |bike| bikes.include?(bike) }
   end
 
   def deliver(garage)
-    garage.broken_bikes.concat(broken_bikes)
-    @broken_bikes = []
+    garage.dock(bikes).flatten!
+    remove_bikes_from(self)
   end
 
   def collect_working_bikes(garage)
-    @working_bikes.concat(garage.working_bikes)
+      garage.bikes.each { |bike| dock(bike) if bike.working }
+      remove_bikes_from(garage)
   end
 
   def return_bikes(docking_station)
-    working_bikes.each do |bike|
-      docking_station.dock(bike)
-      working_bikes.delete(bike)
-    end
+    bikes.each { |bike| docking_station.dock(bike) }
+    remove_bikes_from(self)
   end
 
 end

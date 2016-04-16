@@ -31,6 +31,7 @@ RSpec.configure do |config|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end
 
+
   # rspec-mocks config goes here. You can use an alternate test double
   # library (such as bogus or mocha) by changing the `mock_with` option here.
   config.mock_with :rspec do |mocks|
@@ -39,6 +40,19 @@ RSpec.configure do |config|
     # `true` in RSpec 4.
     mocks.verify_partial_doubles = true
   end
+
+
+
+
+      #Require shared examples before other rspec files
+      #https://relishapp.com/rspec/rspec-core/docs/example-groups/shared-examples
+      # Dir["./support/**/*.rb"].sort.each { |f| require f}
+
+
+
+
+      
+
 
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.
